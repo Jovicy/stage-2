@@ -42,6 +42,7 @@ const Header = () => {
                 </div>
             </div>
         </nav>
+        <Home/>
     </div>
   )
 }
