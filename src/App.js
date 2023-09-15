@@ -10,7 +10,6 @@ export default function App() {
         <Routes>
           <Route index element={<Header/>}></Route>
           <Route path="movie/:id" element={<Movie/>}></Route>
-          <Route path="/*" element={<h1>Error page</h1>}></Route>
         </Routes>
       </Router>
     </div>
