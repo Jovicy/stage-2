@@ -9,6 +9,10 @@ import imdb from '../../assets/imdb.png';
 import tomato from '../../assets/tomato.png';
 import { Link } from 'react-router-dom';
 import arrowBtn from '../../assets/arrow-right.png';
+import facebook from '../../assets/fa-brands_facebook-square.png'
+import instagram from '../../assets/fa-brands_instagram.png'
+import twitter from '../../assets/fa-brands_twitter.png'
+import youtube from '../../assets/fa-brands_youtube.png'
 import './header.css'
 
 const Header = () => {
@@ -79,9 +83,11 @@ const Header = () => {
                   <div>
                     <li className='list-none'><a className="text-white font-bold text-base" href="#">Sign In</a></li>
                   </div>
-                  <div className='bg-rose-700 rounded-full p-2 cursor-pointer'>
-                    <img src={menuBtn} alt="menu-btn" />
-                  </div>
+                  <Link to={`/movie/${movie.id}`}>
+                    <div className='bg-rose-700 rounded-full p-2 cursor-pointer'>
+                      <img src={menuBtn} alt="menu-btn" />
+                    </div>
+                  </Link>
                 </div>
               </nav>
               {/* Display movie details based on the current slide */}
@@ -111,7 +117,7 @@ const Header = () => {
                   <div>
                     <p className='text-white text-sm font-medium leading-loose'>{movie ? movie.overview : ''}</p>
                   </div>
-                  <div>
+                  <Link to={`/movie/${movie.id}`}>
                     <button className='flex justify-center gap-2 items-center bg-rose-700 rounded-md py-1.5 px-4 cursor-pointer'>
                       <div>
                         <img src={playBtn} alt="play" />
@@ -120,7 +126,7 @@ const Header = () => {
                         <p className="text-sm font-bold text-white uppercase">Watch Trailer</p>
                       </div>
                     </button>
-                  </div>
+                  </Link>
                 </div>
               )}
             </div>
@@ -143,39 +149,81 @@ const Header = () => {
         </div>
         <div className='flex flex-wrap items-center justify-between gap-2 w-full'>
           {popularMovies.map((movie, index) => (
-            <div className='w-1/5'>
-              <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt="poster-path" />
+            <div className='w-1/5' data-testid="movie-card">
+              <Link to={`/movie/${movie.id}`}>
+                <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt="poster-path" data-testid="movie-poster" />
+              </Link>
               <div className="flex flex-col gap-1 py-3">
                 <div>
-                  <h3 className='text-xs text-gray-400 font-normal'>{movie ? movie.original_language : ''}, {movie ? movie.release_date : ''}</h3>
+                  <h3 className='text-xs text-gray-400 font-normal' data-testid="movie-release-date">
+                    {movie ? movie.original_language : ''}, {movie ? movie.release_date : ''}
+                  </h3>
                 </div>
                 <div>
-                  <h3 className='text-lg text-gray-900 font-normal'>{movie ? movie.title : ''}</h3>
+                  <h3 className='text-lg text-gray-900 font-normal' data-testid="movie-title">
+                    {movie ? movie.title : ''}
+                  </h3>
                 </div>
                 <div className='flex gap-3 items-center justify-between'>
-                    <div className="flex gap-3 items-center cursor-pointer">
-                      <div>
-                        <img src={imdb} alt="imdb-logo" />
-                      </div>
-                      <div>
-                        <p className="text-gray-900 text-xs font-normal">{movie ? movie.vote_average : ''}</p>
-                      </div>
+                  <div className="flex gap-3 items-center cursor-pointer">
+                    <div>
+                      <img src={imdb} alt="imdb-logo" />
                     </div>
-                    <div className='flex gap-3 items-center cursor-pointer'>
-                      <div>
-                        <img src={tomato} alt="tomato" />
-                      </div>
-                      <div>
-                        <p className="text-gray-900 text-xs font-normal">{movie ? movie.vote_count : ''}</p>
-                      </div>
+                    <div>
+                      <p className="text-gray-900 text-xs font-normal">
+                        {movie ? movie.vote_average : ''}
+                      </p>
                     </div>
+                  </div>
+                  <div className='flex gap-3 items-center cursor-pointer'>
+                    <div>
+                      <img src={tomato} alt="tomato" />
+                    </div>
+                    <div>
+                      <p className="text-gray-900 text-xs font-normal">
+                        {movie ? movie.vote_count : ''}
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                  <p className='text-gray-400 font-bold text-xs'>{movie ? movie.genre_ids : ''}</p>
+                  <p className='text-gray-400 font-bold text-xs' data-testid="movie-genre">
+                    {movie ? movie.genre_ids : ''}
+                  </p>
                 </div>
               </div>
             </div>
           ))}
+        </div>
+      </div>
+      <div className="flex flex-col items-center justify-center p-10 gap-5">
+        <div className="flex gap-10">
+          <div>
+            <img className="cursor-pointer" src={facebook} alt="social-icon" />
+          </div>
+          <div>
+            <img className="cursor-pointer" src={instagram} alt="social-icon" />
+          </div>
+          <div>
+            <img className="cursor-pointer" src={twitter} alt="social-icon" />
+          </div>
+          <div>
+            <img className="cursor-pointer" src={youtube} alt="social-icon" />
+          </div>
+        </div>
+        <div className="flex gap-20">
+          <div>
+            <p className="text-gray-900 font-bold text-xl cursor-pointer">Conditions of Use</p>
+          </div>
+          <div>
+            <p className="text-gray-900 font-bold text-xl cursor-pointer">Privacy & Policy</p>
+          </div>
+          <div>
+            <p className="text-gray-900 font-bold text-xl cursor-pointer">Press Room</p>
+          </div>
+        </div>
+        <div>
+          <p className='text-gray-500 font-bold text-xl cursor-pointer'>© 2021 MovieBox by Adriana Eka Prayudha  </p>
         </div>
       </div>
     </>
