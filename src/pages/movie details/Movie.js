@@ -1,6 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Logo from '../../assets/logo2.png';
 import homeBtn from '../../assets/Home.png'
 import movieBtn from '../../assets/Movie Projector.png'
@@ -19,16 +18,16 @@ const movie = () => {
     const [currentMovieDetail, setMovie] = useState()
     const { id } = useParams()
 
-    useEffect(() => {
-        getData()
-        window.scrollTo(0,0)
-    }, [])
-
-    const getData = () => {
+    const getData = useCallback(() => {
         fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=2c32c5748ed591a2830d0caf372626aa&language=en-US`)
-        .then(res => res.json())
-        .then(data => setMovie(data))
-    }
+          .then((res) => res.json())
+          .then((data) => setMovie(data));
+    }, [id]);
+      
+    useEffect(() => {
+    getData();
+    window.scrollTo(0, 0);
+    }, [getData]);
 
   return (
     <div className="flex h-screen w-full">
