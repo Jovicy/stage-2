@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Logo from '../../assets/logo2.png';
 import homeBtn from '../../assets/Home.png'
 import movieBtn from '../../assets/Movie Projector.png'
